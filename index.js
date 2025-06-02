@@ -48,7 +48,6 @@ async function generateGeminiResponse(prompt) {
 }
 
 client.once('ready', () => {
-  console.log(`🤖 Logged in as ${client.user.tag}`);
 });
 
 client.on('messageCreate', async (message) => {
@@ -56,10 +55,8 @@ client.on('messageCreate', async (message) => {
   if (!message.mentions.has(client.user)) return;
 
   const prompt = message.content.replace(new RegExp(`<@!?${client.user.id}>`, 'g'), '').trim();
-  console.log(`🧠 Prompting Gemini with: "${prompt}"`);
 
   const response = await generateGeminiResponse(prompt);
-  console.log(`💬 Gemini response: ${response}`);
 
   await message.reply(response);
 });
