@@ -16,7 +16,7 @@ const client = new Client({
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Minimal health check endpoint so Render's port scan passes
+
 app.get('/', (req, res) => {
   res.send('Bot is running');
 });
@@ -24,6 +24,13 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🌐 Express server listening on port ${PORT}`);
 });
+
+setInterval(() => {
+  fetch(`http://localhost:${PORT}/`)
+    .then(() => console.log('🔁 Self-ping sent to keep Render service alive'))
+    .catch((err) => console.error('❌ Self-ping failed:', err));
+}, 5 * 60 * 1000);
+
 
 const GEMINI_API_URL =
   'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite-001:generateContent?key=' +
