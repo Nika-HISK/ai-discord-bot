@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { config } = require('dotenv');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const express = require('express');
 
 config();
 
@@ -10,6 +11,18 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
   ],
+});
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Minimal health check endpoint so Render's port scan passes
+app.get('/', (req, res) => {
+  res.send('Bot is running');
+});
+
+app.listen(PORT, () => {
+  console.log(`🌐 Express server listening on port ${PORT}`);
 });
 
 const GEMINI_API_URL =
@@ -48,6 +61,7 @@ async function generateGeminiResponse(prompt) {
 }
 
 client.once('ready', () => {
+
 });
 
 client.on('messageCreate', async (message) => {
@@ -56,7 +70,9 @@ client.on('messageCreate', async (message) => {
 
   const prompt = message.content.replace(new RegExp(`<@!?${client.user.id}>`, 'g'), '').trim();
 
+
   const response = await generateGeminiResponse(prompt);
+
 
   await message.reply(response);
 });
