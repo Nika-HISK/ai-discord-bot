@@ -28,7 +28,7 @@ app.listen(PORT, () => {
 setInterval(() => {
   fetch(`http://localhost:${PORT}/`)
     .then(() => console.log('🔁 Self-ping sent to keep Render service alive'))
-    .catch((err) => console.error('❌ Self-ping failed:', err));
+    .catch((err) => console.error('Self-ping failed:', err));
 }, 5 * 60 * 1000);
 
 
