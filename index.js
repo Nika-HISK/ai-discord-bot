@@ -58,7 +58,7 @@ async function generateGeminiResponse(prompt) {
     if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
       return data.candidates[0].content.parts[0].text;
     } else {
-      console.error('❌ Unexpected Gemini response:', data);
+      console.error('Unexpected Gemini response:', data);
       return '⚠️ No reply from Gemini.';
     }
   } catch (error) {
