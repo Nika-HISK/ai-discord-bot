@@ -63,7 +63,7 @@ async function generateGeminiResponse(prompt) {
     }
   } catch (error) {
     console.error('Gemini API error:', error);
-    return '⚠️ Gemini API request failed.';
+    return 'Gemini API request failed.';
   }
 }
 
